@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../atoms/input.dart';
+
 class CalculatorScreen extends StatelessWidget {
   final String expression;
 
@@ -16,18 +18,9 @@ class CalculatorScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 28.0, right: 4.0),
-                  child: FittedBox(
-                    child: Text(
-                      expression,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        color: Color(0xffffffff),
-                        decoration: TextDecoration.none,
-                        fontSize: 50,
-                      ),
-                    ),
-                  ),
+                  padding: const EdgeInsets.only(
+                      bottom: 28.0, right: 8.0, left: 8.0),
+                  child: CalculatorInput(expression),
                 ),
               ]),
         ));

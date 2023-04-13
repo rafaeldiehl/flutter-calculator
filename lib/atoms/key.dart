@@ -2,40 +2,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum CalculatorKeyType {
-  OPERATION,
-  DELETE,
-  RESULT,
-  NUMBER,
+  operation,
+  delete,
+  result,
+  number,
 }
 
 class CalculatorKey extends StatelessWidget {
   final String value;
   final bool isExpanded;
   final CalculatorKeyType type;
+  final Function keyClicked;
 
   const CalculatorKey(
-    this.value, {
+    this.value,
+    this.keyClicked, {
     super.key,
     this.isExpanded = false,
-    this.type = CalculatorKeyType.NUMBER,
+    this.type = CalculatorKeyType.number,
   });
 
   @override
   Widget build(BuildContext context) {
-    final Color buttonColor = _buildButtonColor(this.type);
-    final Widget valueWidget = _buildValueWidget(this.value, this.type);
+    final Color buttonColor = _buildButtonColor(type);
+    final Widget valueWidget = _buildValueWidget(value, type);
 
     return Expanded(
       flex: isExpanded ? 2 : 1,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              keyClicked(value);
+            },
             style: TextButton.styleFrom(
               backgroundColor: buttonColor,
               shape: RoundedRectangleBorder(
                 borderRadius:
-                    BorderRadius.circular(20), // define a borda arredondada
+                    BorderRadius.circular(20), // Define a borda arredondada
               ),
             ),
             child: valueWidget),
@@ -44,23 +48,26 @@ class CalculatorKey extends StatelessWidget {
   }
 }
 
+// Função para determinar a cor de fundo do botão com base no tipo
 Color _buildButtonColor(CalculatorKeyType type) {
   switch (type) {
-    case CalculatorKeyType.DELETE:
+    case CalculatorKeyType.delete:
       return const Color(0xffcf2e50);
-    case CalculatorKeyType.OPERATION:
+    case CalculatorKeyType.operation:
       return const Color(0xff005DB2);
-    case CalculatorKeyType.RESULT:
+    case CalculatorKeyType.result:
       return const Color(0xff1991FF);
     default:
       return const Color(0xff20202a);
   }
 }
 
+// Função para converter textos, como 'del' em ícone
 Widget _buildValueWidget(String value, CalculatorKeyType type) {
   final Color textButtonColor;
 
-  if (type != CalculatorKeyType.NUMBER) {
+  // Textos com cor de fundo são brancos, os default são azuis
+  if (type != CalculatorKeyType.number) {
     textButtonColor = const Color(0xffffffff);
   } else {
     textButtonColor = const Color(0xff1ba9e8);

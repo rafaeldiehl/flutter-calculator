@@ -4,65 +4,74 @@ import '../atoms/key.dart';
 import 'key_row.dart';
 
 class CalculatorKeyboard extends StatelessWidget {
-  const CalculatorKeyboard({super.key});
+  final Function keyClicked;
+
+  const CalculatorKeyboard(this.keyClicked, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 36.0),
-      child: Container(
+      child: SizedBox(
         height: 400,
         child: Column(
           children: [
             CalculatorKeyRow([
               CalculatorKey(
-                'CE',
+                'AC',
+                keyClicked,
                 isExpanded: true,
-                type: CalculatorKeyType.DELETE,
+                type: CalculatorKeyType.delete,
               ),
               CalculatorKey(
                 'del',
-                type: CalculatorKeyType.DELETE,
+                keyClicked,
+                type: CalculatorKeyType.delete,
               ),
               CalculatorKey(
                 '/',
-                type: CalculatorKeyType.OPERATION,
+                keyClicked,
+                type: CalculatorKeyType.operation,
               ),
             ]),
             CalculatorKeyRow([
-              CalculatorKey('7'),
-              CalculatorKey('8'),
-              CalculatorKey('9'),
+              CalculatorKey('7', keyClicked),
+              CalculatorKey('8', keyClicked),
+              CalculatorKey('9', keyClicked),
               CalculatorKey(
                 '*',
-                type: CalculatorKeyType.OPERATION,
+                keyClicked,
+                type: CalculatorKeyType.operation,
               ),
             ]),
             CalculatorKeyRow([
-              CalculatorKey('4'),
-              CalculatorKey('5'),
-              CalculatorKey('6'),
+              CalculatorKey('4', keyClicked),
+              CalculatorKey('5', keyClicked),
+              CalculatorKey('6', keyClicked),
               CalculatorKey(
                 '-',
-                type: CalculatorKeyType.OPERATION,
+                keyClicked,
+                type: CalculatorKeyType.operation,
               ),
             ]),
             CalculatorKeyRow([
-              CalculatorKey('1'),
-              CalculatorKey('2'),
-              CalculatorKey('3'),
+              CalculatorKey('1', keyClicked),
+              CalculatorKey('2', keyClicked),
+              CalculatorKey('3', keyClicked),
               CalculatorKey(
                 '+',
-                type: CalculatorKeyType.OPERATION,
+                keyClicked,
+                type: CalculatorKeyType.operation,
               ),
             ]),
             CalculatorKeyRow([
-              CalculatorKey('0'),
-              CalculatorKey('.'),
+              CalculatorKey('0', keyClicked),
+              CalculatorKey('.', keyClicked),
               CalculatorKey(
                 '=',
+                keyClicked,
                 isExpanded: true,
-                type: CalculatorKeyType.RESULT,
+                type: CalculatorKeyType.result,
               ),
             ]),
           ],
