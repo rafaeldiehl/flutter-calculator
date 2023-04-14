@@ -16,6 +16,8 @@ class _CalculatorState extends State<Calculator> {
   double secondOperand = 0;
   String? operator;
 
+  // Controle para não permitir usar duas operações seguidas
+  String? lastKey;
   // Controle para verificar se está esperando um segundo operando
   bool secondOperandComing = false;
   // Controle no caso da divisão por 0
@@ -23,6 +25,7 @@ class _CalculatorState extends State<Calculator> {
 
   keyClicked(String keyValue) {
     setState(() {
+      // verifica se o último botão pressionado é um operador
       switch (keyValue) {
         case 'AC':
           addClearKey();
@@ -34,7 +37,10 @@ class _CalculatorState extends State<Calculator> {
         case '-':
         case '/':
         case '*':
-          addOperationKey(keyValue);
+          // Verifica se a última variável não é um operador, para não ter operadores duplicados
+          if (lastKey != null && !isOperator(lastKey.toString())) {
+            addOperationKey(keyValue);
+          }
           break;
         case '=':
           addEqualKey();
@@ -43,7 +49,12 @@ class _CalculatorState extends State<Calculator> {
           addNumberKey(keyValue);
           break;
       }
+      lastKey = keyValue; // atualiza a variável lastKey
     });
+  }
+
+  bool isOperator(String key) {
+    return key == '+' || key == '-' || key == '*' || key == '/';
   }
 
   void addClearKey() {
